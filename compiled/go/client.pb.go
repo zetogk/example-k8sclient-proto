@@ -7,6 +7,10 @@
 package k8sclientv1
 
 import (
+	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -735,4 +739,156 @@ func file_proto_client_proto_init() {
 	file_proto_client_proto_rawDesc = nil
 	file_proto_client_proto_goTypes = nil
 	file_proto_client_proto_depIdxs = nil
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConnInterface
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion6
+
+// ClientK8SAPIServiceClient is the client API for ClientK8SAPIService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type ClientK8SAPIServiceClient interface {
+	CreateDeployment(ctx context.Context, in *CreateDeploymentRequest, opts ...grpc.CallOption) (*CreateDeploymentResponse, error)
+	ListDeployments(ctx context.Context, in *ListDeploymentsRequest, opts ...grpc.CallOption) (*ListDeploymentsResponse, error)
+	ListPods(ctx context.Context, in *ListPodsRequest, opts ...grpc.CallOption) (*ListPodsResponse, error)
+}
+
+type clientK8SAPIServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewClientK8SAPIServiceClient(cc grpc.ClientConnInterface) ClientK8SAPIServiceClient {
+	return &clientK8SAPIServiceClient{cc}
+}
+
+func (c *clientK8SAPIServiceClient) CreateDeployment(ctx context.Context, in *CreateDeploymentRequest, opts ...grpc.CallOption) (*CreateDeploymentResponse, error) {
+	out := new(CreateDeploymentResponse)
+	err := c.cc.Invoke(ctx, "/zetogk.k8sclient.ClientK8SAPIService/CreateDeployment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *clientK8SAPIServiceClient) ListDeployments(ctx context.Context, in *ListDeploymentsRequest, opts ...grpc.CallOption) (*ListDeploymentsResponse, error) {
+	out := new(ListDeploymentsResponse)
+	err := c.cc.Invoke(ctx, "/zetogk.k8sclient.ClientK8SAPIService/ListDeployments", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *clientK8SAPIServiceClient) ListPods(ctx context.Context, in *ListPodsRequest, opts ...grpc.CallOption) (*ListPodsResponse, error) {
+	out := new(ListPodsResponse)
+	err := c.cc.Invoke(ctx, "/zetogk.k8sclient.ClientK8SAPIService/ListPods", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ClientK8SAPIServiceServer is the server API for ClientK8SAPIService service.
+type ClientK8SAPIServiceServer interface {
+	CreateDeployment(context.Context, *CreateDeploymentRequest) (*CreateDeploymentResponse, error)
+	ListDeployments(context.Context, *ListDeploymentsRequest) (*ListDeploymentsResponse, error)
+	ListPods(context.Context, *ListPodsRequest) (*ListPodsResponse, error)
+}
+
+// UnimplementedClientK8SAPIServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedClientK8SAPIServiceServer struct {
+}
+
+func (*UnimplementedClientK8SAPIServiceServer) CreateDeployment(context.Context, *CreateDeploymentRequest) (*CreateDeploymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDeployment not implemented")
+}
+func (*UnimplementedClientK8SAPIServiceServer) ListDeployments(context.Context, *ListDeploymentsRequest) (*ListDeploymentsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDeployments not implemented")
+}
+func (*UnimplementedClientK8SAPIServiceServer) ListPods(context.Context, *ListPodsRequest) (*ListPodsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPods not implemented")
+}
+
+func RegisterClientK8SAPIServiceServer(s *grpc.Server, srv ClientK8SAPIServiceServer) {
+	s.RegisterService(&_ClientK8SAPIService_serviceDesc, srv)
+}
+
+func _ClientK8SAPIService_CreateDeployment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDeploymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClientK8SAPIServiceServer).CreateDeployment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/zetogk.k8sclient.ClientK8SAPIService/CreateDeployment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClientK8SAPIServiceServer).CreateDeployment(ctx, req.(*CreateDeploymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ClientK8SAPIService_ListDeployments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDeploymentsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClientK8SAPIServiceServer).ListDeployments(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/zetogk.k8sclient.ClientK8SAPIService/ListDeployments",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClientK8SAPIServiceServer).ListDeployments(ctx, req.(*ListDeploymentsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ClientK8SAPIService_ListPods_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListPodsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClientK8SAPIServiceServer).ListPods(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/zetogk.k8sclient.ClientK8SAPIService/ListPods",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClientK8SAPIServiceServer).ListPods(ctx, req.(*ListPodsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ClientK8SAPIService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "zetogk.k8sclient.ClientK8SAPIService",
+	HandlerType: (*ClientK8SAPIServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateDeployment",
+			Handler:    _ClientK8SAPIService_CreateDeployment_Handler,
+		},
+		{
+			MethodName: "ListDeployments",
+			Handler:    _ClientK8SAPIService_ListDeployments_Handler,
+		},
+		{
+			MethodName: "ListPods",
+			Handler:    _ClientK8SAPIService_ListPods_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/client.proto",
 }
