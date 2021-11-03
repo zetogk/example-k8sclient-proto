@@ -8,6 +8,8 @@ option go_package = "github.com/zetogk/k8sclientv1";
 
 message KDeployment {
     string name = 1;
+    string image = 2;
+    int32 port = 3;
 }
 
 message KPod {
@@ -39,7 +41,6 @@ message ListPodsRequest {
 message ListPodsResponse {
     repeated KPod pods = 1;
 }
-
 
 service ClientK8SAPIService{
     rpc CreateDeployment(CreateDeploymentRequest) returns (CreateDeploymentResponse) {};
